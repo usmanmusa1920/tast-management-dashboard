@@ -1,11 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task management dashboard</title>
-</head>
-<body>
-    read page
-</body>
-</html>
+{% extends 'base.html' %}
+
+
+{% block header_content %}
+    <title>Tasky Management Dashboard | Read Task Page</title>
+{% endblock header_content %}
+
+
+{% block main_content %}
+    <!-- Read Task -->
+    <div class="w-full lg:w-1/3">
+        <h2 class="text-xl font-bold mb-4">Read Task</h2>
+        <div id="in-progress-tasks">
+            <div class="bg-white rounded shadow p-4 mb-4">
+                <div class="flex justify-between mb-2">
+                    <span class="text-red-500">{{read_task.priority}}</span>
+                    <span class="text-gray-500">{{read_task.due_date|date:'m/n/y'}}</span>
+                    <span class="text-purple-500">{{read_task.category}}</span>
+                </div>
+                <h3 class="text-lg font-bold mb-2">{{read_task.title}}</h3>
+                <p class="text-gray-600 mb-4">{{read_task.description}}</p>
+                <div class="flex justify-between items-center">
+                    <div class="flex -space-x-2">
+                        <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/24" alt="">
+                        <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/24" alt="">
+                        <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/24" alt="">
+                        <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/24" alt="">
+                    </div>
+                    {% if read_task.assigned_to == request.user %}
+                        <div class="flex space-x-2 text-gray-400">
+                            <a href="{% url 'delete_view' read_task.id %}"><span class="material-icons cursor-pointer">delete</span></a>
+                            <a href="{% url 'update_view' read_task.id %}"><span class="material-icons cursor-pointer">edit</span></a>
+                        </div>
+                    {% endif %}
+                </div>
+                <br>
+                <b>Task status:</b> {{read_task.status}}
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}

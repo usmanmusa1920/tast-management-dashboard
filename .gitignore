@@ -1,4 +1,7 @@
 venv
+__pycache__
+
+
 # Compiled Python files
 *.pyc
 

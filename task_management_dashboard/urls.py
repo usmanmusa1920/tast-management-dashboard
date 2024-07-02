@@ -21,13 +21,17 @@ from task_management.views import create_view
 from task_management.views import read_view
 from task_management.views import update_view
 from task_management.views import delete_view
+from task_management.views import delete_view_api
 from task_management.views import fetch_task
+from task_management.views import search_task
 from task_management.views import login_view
 from task_management.views import logout_view
+from task_management.views import TaskListView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/tasks/', TaskListView.as_view(), name='task-list'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('', landing, name='landing'),
@@ -35,5 +39,7 @@ urlpatterns = [
     path('read/<int:task_id>/', read_view, name='read_view'),
     path('update/<int:task_id>/', update_view, name='update_view'),
     path('delete/<int:task_id>/', delete_view, name='delete_view'),
-    path('fetch/task/', fetch_task, name='fetch_task'),
+    path('delete/api/<int:task_id>/', delete_view_api, name='delete_view_api'),
+    path('fetch/task/<str:base_on>/', fetch_task, name='fetch_task'),
+    path('search/task/', search_task, name='search_task'),
 ]

@@ -10,7 +10,7 @@ First clone the github repository by:
 git clone https://github.com/usmanmusa1920/tast-management-dashboard
 ```
 
-Now, cd into the cloned project directory, and install the dependencies (libraries) by:
+Now, cd into the cloned project directory, and install the dependencies (libraries) which include `django (v5.0.6)`, `djangorestframework (v3.15.2)` and others by:
 
 ```sh
 pip install -r requirements.txt
@@ -26,12 +26,24 @@ Then, visit the application on localhost port 8000 <a href="http://127.0.0.1:800
 
 <b>Username:</b> usman & <b>Password:</b> passwd1234
 
-Or, you can create your own user by:
+Or, you can create your own user, and task by:
 
 ```sh
 python manage.py createsuperuser
 ```
 
-After that then login with the new user credentials.
+After that, you should go to python interpreter using django command of:
+
+```sh
+python manage.py shell
+```
+
+Then copy the entire content of `automate.sh` file in the base directory of the cloned project and paste it in the interpreter, after then login with the new user credentials.
+
+## Screen-shot
+
+Below are two screen shots of dashboard, the first one is the dashboard for this project, while the later is the prototype that I was insisted to design (sample)
 
 ![snippet_theme](screenshot.png)
+
+![snippet_theme](sample.png)

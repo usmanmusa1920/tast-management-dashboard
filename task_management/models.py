@@ -1,6 +1,4 @@
 from django.db import models
-from django.conf import settings
-from django.utils import timezone
 from django.contrib.auth.models import User
 
 
@@ -18,7 +16,8 @@ class TaskModel(models.Model):
     priority_choices = [('Low', 'Low'), ('Medium', 'Medium'), ('High', 'High')]
     priority = models.CharField(max_length=255, blank=False, null=False, choices=priority_choices)
 
-    category = models.CharField(max_length=255, blank=False, null=False)
+    category_choices = [('UX Design', 'UX Design'), ('Development', 'Development'), ('UI Design', 'UI Design')]
+    category = models.CharField(max_length=255, blank=False, null=False, choices=category_choices)
     
     def __str__(self):
         return f'Task model with ID number of {self.id}'

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  {% block header_content %} <!-- Header content here! --> {% endblock header_content %}
+</head>
+<body class="bg-blue-100">
+  <div class="flex flex-col md:flex-row min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-full md:w-64 bg-white p-4">
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold text-blue-500">Tasky</h1>
+      </div>
+      <nav>
+        <ul>
+          <li class="mb-4">
+            <a href="/" class="flex items-center text-blue-500">
+              <span class="material-icons">dashboard</span>
+              <span class="ml-2">Dashboard</span>
+            </a>
+          </li>
+          <li class="mb-4">
+            <a href="#" class="flex items-center text-gray-600">
+              <span class="material-icons">assignment</span>
+              <span class="ml-2">Tasks</span>
+            </a>
+          </li>
+          <li class="mb-4">
+            <a href="#" class="flex items-center text-gray-600">
+              <span class="material-icons">calendar_today</span>
+              <span class="ml-2">Calendar</span>
+            </a>
+          </li>
+          <li class="mb-4">
+            <a href="#" class="flex items-center text-gray-600">
+              <span class="material-icons">people</span>
+              <span class="ml-2">Members</span>
+            </a>
+          </li>
+          {% if request.user.is_authenticated %}
+            <li class="mb-4">
+                <a href="/admin/" class="flex items-center text-gray-600">
+                <span class="material-icons">logout</span>
+                <span class="ml-2">Admin</span>
+                </a>
+            </li>
+            <li class="mb-4">
+                <a href="{% url 'logout' %}" class="flex items-center text-gray-600">
+                <span class="material-icons">logout</span>
+                <span class="ml-2">Logout</span>
+                </a>
+            </li>
+          {% else %}
+            <li class="mb-4">
+                <a href="{% url 'login' %}" class="flex items-center text-gray-600">
+                <span class="material-icons">login</span>
+                <span class="ml-2">Login</span>
+                </a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+      <hr>
+      <br>
+
+      <span class="ml-2"><b>Fetch task base on status:</b></span>
+      <div class="flex justify-between mb-2 pl-8"><li><a href="{% url 'fetch_task' 'In Progress' %}">In Progress</a></li></div>
+      <div class="flex justify-between mb-2 pl-8"><li><a href="{% url 'fetch_task' 'Completed' %}">Completed</a></li></div>
+      <div class="flex justify-between mb-2 pl-8"><li><a href="{% url 'fetch_task' 'Overdue' %}">Overdue</a></li></div>
+      <br>
+      <br>
+      <span class="ml-2"><b>Fetch task base on priority:</b></span>
+      <div class="flex justify-between mb-2 pl-8"><li><a href="{% url 'fetch_task' 'High' %}">High</a></li></div>
+      <div class="flex justify-between mb-2 pl-8"><li><a href="{% url 'fetch_task' 'Medium' %}">Medium</a></li></div>
+      <div class="flex justify-between mb-2 pl-8"><li><a href="{% url 'fetch_task' 'Low' %}">Low</a></li></div>
+      <br>
+      <br>
+      <span class="ml-2"><b>Fetch task base on category:</b></span>
+      <div class="flex justify-between mb-2 pl-8"><li><a href="{% url 'fetch_task' 'UX Design' %}">UX Design</a></li></div>
+      <div class="flex justify-between mb-2 pl-8"><li><a href="{% url 'fetch_task' 'Development' %}">Development</a></li></div>
+      <div class="flex justify-between mb-2 pl-8"><li><a href="{% url 'fetch_task' 'UI Design' %}">UI Design</a></li></div>
+      <br>
+      <br>
+
+      <div class="mt-auto">
+        <button class="w-full bg-purple-600 text-white py-2 rounded">Upgrade to Pro</button>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+        <form action="{% url 'search_task' %}" method="get" class="rounded border w-full md:w-1/3 mb-4 md:mb-0">
+          {% csrf_token %}
+          <input type="text" placeholder="Search tasks" name="search_tsk" class="px-4 py-2 rounded border border-gray-300 w-full md:w-1/3 mb-4 md:mb-0">
+          <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">search</button>
+        </form>
+        <div class="flex justify-between items-center">
+          <div class="flex space-x-2 text-gray-400">
+              <a href="#"><span class="material-icons cursor-pointer">message</span></a>
+              <a href="#"><span class="material-icons cursor-pointer">notifications</span></a>
+              <a href="#"><span class="material-icons cursor-pointer">person</span></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+        <div class="flex space-x-2 text-gray-400">
+            <a href="#"><span class="material-icons cursor-pointer">preview</span></a>
+            <a href="#"><span class="material-icons cursor-pointer">sort</span></a>
+            <a href="#"><span class="material-icons cursor-pointer">filter</span></a>
+        </div>
+        <div class="flex justify-between items-center">
+          <div class="flex -space-x-2">
+              <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/24" alt="">
+              <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/24" alt="">
+              <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/24" alt="">
+              <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/24" alt="">
+          </div>
+          &nbsp;
+          &nbsp;
+          <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded">+</a>
+          &nbsp;
+          &nbsp;
+          <a href="{% url 'create_view' %}" class="bg-blue-500 text-white px-4 py-2 rounded">+ Add task</a>
+        </div>
+      </div>
+      
+      {% if messages %}
+        {% for msg in messages %}
+          <div class="flex justify-between mb-2">
+            {% if msg.tags == 'success' %}
+              <span class="w-full bg-green-600 text-white py-2 rounded text-center">{{msg}}</span>
+            {% elif msg.tags == 'warning' %}
+              <span class="w-full bg-red-600 text-white py-2 rounded text-center">{{msg}}</span>
+            {% elif msg.tags == 'debug' %}
+              <span class="w-full bg-black-600 text-white py-2 rounded text-center">{{msg}}</span>
+            {% elif msg.tags == 'error' %}
+              <span class="w-full bg-pink-600 text-white py-2 rounded text-center">{{msg}}</span>
+            {% else %}
+              <span class="w-full bg-blue-600 text-white py-2 rounded text-center">{{msg}}</span>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endif %}
+      
+      <div class="flex flex-col lg:flex-row gap-4">
+        {% block main_content %} <!-- Main content here! --> {% endblock main_content %}
+      </div>
+    </main>
+  </div>
+</body>
+</html>

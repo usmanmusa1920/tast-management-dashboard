@@ -1,11 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task management dashboard</title>
-</head>
-<body>
-    update page
-</body>
-</html>
+{% extends 'base.html' %}
+
+
+{% block header_content %}
+    <title>Tasky Management Dashboard | Update Task Page</title>
+{% endblock header_content %}
+
+
+{% block main_content %}
+    <!-- Update Task -->
+    <div class="w-full lg:w-1/3">
+        <h2 class="text-xl font-bold mb-4">Update Task</h2>
+        <div id="in-progress-tasks">
+            <div class="bg-white rounded shadow p-4 mb-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <b>Title:</b>
+                    <br>
+                    {% if form.instance.title == None or form.instance.title == '' %}
+                        <input type="text" name="title" placeholder="Title">
+                    {% else %}
+                        <input type="text" name="title" placeholder="Title" value="{{form.instance.title}}">
+                    {% endif %}
+                    <br>
+                    <hr>
+                    <br>
+                    <b>Description:</b>
+                    <br>
+                    {% if form.instance.description == None or form.instance.description == '' %}
+                        <textarea name="description" placeholder="Description"></textarea>
+                    {% else %}
+                        <textarea name="description" placeholder="Description">{{form.instance.description}}</textarea>
+                    {% endif %}
+                    <br>
+                    <hr>
+                    <br>
+                    <b>Category:</b>
+                    {{form.category}}
+                    <br>
+                    <hr>
+                    <br>
+                    <b>Status:</b>
+                    {{form.status}}
+                    <br>
+                    <hr>
+                    <br>
+                    <b>Priority:</b>
+                    {{form.priority}}
+                    <br>
+                    <br>
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}
