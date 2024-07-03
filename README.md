@@ -26,7 +26,13 @@ Then, visit the application on localhost port 8000 <a href="http://127.0.0.1:800
 
 <b>Username:</b> usman & <b>Password:</b> passwd1234
 
-Or, you can create your own user, and task by:
+Or, you can start as fresh by creatinge your own user, and task by starting with migrations and the rest:
+
+```sh
+python manage.py makemigrations
+```
+
+Then,
 
 ```sh
 python manage.py createsuperuser

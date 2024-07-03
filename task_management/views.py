@@ -166,10 +166,8 @@ def delete_view_api(request, task_id):
         return False
     else:
         delete_api_task.delete()
-    
-    delete_api_task.delete()
 
-    messages.success(request, f'Sucessfully deleted a task with the ID ({delete_api_task})')
+    messages.success(request, f'Sucessfully deleted a task with an ID ({task_id})')
     return redirect('landing')
 
 
